@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "bccd1b2f-b005-413a-a13a-e8fcccc2b2ca",
+		"name": "ThingsFlowCloneAppTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "InsertContent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6047bd22-4d91-4dc2-a9ca-a75a99e42b97",
+						"exec": [
+							"tests[\"reponse code is 200\"] = responseCode.code === 200;",
+							"let reqJson;",
+							"try{",
+							"    reqJson = JSON.parse(pm.request.body)",
+							"    tests[\"request is valid Json\"] = true",
+							"}catch(error){",
+							"    tests[\"request is valid Json\"] = false",
+							"    pm.variables.get(\"variable_key\");",
+							"}",
+							"tests[\"req body has type\"] = _.has(reqJson, \"type\")",
+							"tests[\"req body has phase\"] = _.has(reqJson, \"phase\")",
+							"tests[\"req body has content\"] = _.has(reqJson, \"content\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"date-luck\",\n    \"phase\": 0,\n    \"content\": \"좋아. 우선...권희재 너랑 썸인지 뭔지를 타고 있는 그분을 내가 뭐라고 부를까?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InsertContentWithResponse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19882598-5be8-4fa9-8543-bfe816f14999",
+						"exec": [
+							"tests[\"reponse code is 200\"] = responseCode.code === 200;",
+							"let reqJson;",
+							"try{",
+							"    reqJson = JSON.parse(pm.request.body)",
+							"    tests[\"request is valid Json\"] = true",
+							"}catch(error){",
+							"    tests[\"request is valid Json\"] = false",
+							"}",
+							"tests[\"req body has type\"] = _.has(reqJson, \"type\")",
+							"tests[\"req body has phase\"] = _.has(reqJson, \"phase\")",
+							"tests[\"req body has response\"] = _.has(reqJson, \"response\")",
+							"tests[\"req body has content\"] = _.has(reqJson, \"content\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"date-luck\",\n    \"phase\": 1,\n    \"response\" : \"Y\",\n    \"content\": \"준찌이구나 알겠어 이제 마음을 차분하게하고 준석일르 떠올리면서 카드를 한장 뽑아보자\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InsertPreexistContent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b80aed3f-11f1-45b8-b3ac-5b97d8930bf1",
+						"exec": [
+							"tests[\"reponse code is 403\"] = responseCode.code === 403;",
+							"let reqJson;",
+							"try{",
+							"    reqJson = JSON.parse(pm.request.body)",
+							"    tests[\"request is valid Json\"] = true",
+							"}catch(error){",
+							"    reqJson= {};",
+							"    tests[\"request is valid Json\"] = false",
+							"}",
+							"tests[\"req body has type\"] = _.has(reqJson, \"type\")",
+							"tests[\"req body has phase\"] = _.has(reqJson, \"phase\")",
+							"tests[\"req body has content\"] = _.has(reqJson, \"content\")",
+							"",
+							"let resJson;",
+							"try{",
+							"    resJson = JSON.parse(responseBody)",
+							"    tests[\"response is valid Json\"] = true",
+							"}catch(error){",
+							"    tests[\"response is valid Json\"] = false",
+							"}",
+							"tests[\"res body has message\"] = _.has(resJson, \"message\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"date-luck\",\n    \"phase\": 0,\n    \"content\": \"좋아. 우선...권희재 너랑 썸인지 뭔지를 타고 있는 그분을 내가 뭐라고 부를까?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetContent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e59db1e-f74d-458d-8ead-f2184b92cf6f",
+						"exec": [
+							"tests[\"reponse code is 200\"] = responseCode.code === 200;",
+							"var query = {};",
+							"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});",
+							"tests[\"query has type\"] = _.has(query, \"type\")",
+							"tests[\"query has phase\"] = _.has(query, \"phase\")",
+							"tests[\"query has response\"] = !_.has(query, \"response\")",
+							"",
+							"let resJson;",
+							"try{",
+							"    resJson = JSON.parse(responseBody)",
+							"    tests[\"response is valid Json\"] = true",
+							"}catch(error){",
+							"    tests[\"response is valid Json\"] = false",
+							"}",
+							"tests[\"res body has content\"] = _.has(resJson, \"content\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/content?type=date-luck&phase=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"content"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "date-luck",
+							"description": "content type"
+						},
+						{
+							"key": "phase",
+							"value": "0",
+							"description": "scenario phase"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetContentWithResponse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47222774-1627-4fc9-abfe-4425741e4618",
+						"exec": [
+							"tests[\"reponse code is 200\"] = responseCode.code === 200;",
+							"tests[\"reponse code is 200\"] = responseCode.code === 200;",
+							"var query = {};",
+							"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});",
+							"tests[\"query has type\"] = _.has(query, \"type\")",
+							"tests[\"query has phase\"] = _.has(query, \"phase\")",
+							"tests[\"query has response\"] = _.has(query, \"response\")",
+							"",
+							"let resJson;",
+							"try{",
+							"    resJson = JSON.parse(responseBody)",
+							"    tests[\"response is valid Json\"] = true",
+							"}catch(error){",
+							"    tests[\"response is valid Json\"] = false",
+							"}",
+							"tests[\"res body has content\"] = _.has(resJson, \"content\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/content?type=date-luck&phase=1&response=Y",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"content"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "date-luck",
+							"description": "content type"
+						},
+						{
+							"key": "phase",
+							"value": "1",
+							"description": "scenario phase"
+						},
+						{
+							"key": "response",
+							"value": "Y",
+							"description": "user response"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetContentWithoutParams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89cd12d7-82de-4322-a261-f0061a6a458b",
+						"exec": [
+							"tests[\"reponse code is 400\"] = responseCode.code === 400;",
+							"let resJson;",
+							"try{",
+							"    resJson = JSON.parse(responseBody)",
+							"    tests[\"response is valid Json\"] = false",
+							"}catch(error){",
+							"    tests[\"response is valid Json\"] = true",
+							"}",
+							"tests[\"res body has content\"] = !_.has(resJson, \"content\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"content"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
